@@ -107,7 +107,8 @@ app.get('/pagecount', function (req, res) {
 var sendMessage= function(req,res,text){
     var data = {
         'chat_id' : req.body.message.chat.id,
-        'text': text
+        'text': text,
+        'parse_mode': 'markdown'
     };
     console.log(data);
     var request = require('request');
