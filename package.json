@@ -1,0 +1,36 @@
+{
+  "name": "interesante-bot",
+  "version": "0.0.1",
+  "description": "InteresanteBot app for OpenShift 3",
+  "main": "server.js",
+  "dependencies": {
+    "chai": "^3.5.0",
+    "chai-http": "^2.0.1",
+    "ejs": "^2.4.1",
+    "mocha": "^2.4.5",
+    "mongodb": "^2.1.16",
+    "mongoose": "^4.6.3",
+    "http": "0.0.0",
+    "body-parser": "^1.15.1",
+    "express": "^4.14.0",
+    "form-data": "^1.0.0-rc4",
+    "morgan": "^1.7.0",
+    "object-assign": "4.1.0",
+    "querystring": "^0.2.0",
+    "request": "^2.72.0"
+  },
+  "engine": {
+    "node": "*",
+    "npm": "*"
+  },
+  "scripts": {
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/roger1345/interesanteBot.git"
+  },
+  "author": "Roger Villamarin <roger1345@gmail.com>",
+  "license": "Apache 2.0",
+  "homepage": "https://github.com/roger1345/interesanteBot"
+}
