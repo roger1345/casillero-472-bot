@@ -109,7 +109,7 @@ var sendMessage= function(req,res,text){
         'chat_id' : req.body.message.chat.id,
         'text': text
     };
-
+    console.log(data);
     var request = require('request');
     var options = {
       uri: 'https://api.telegram.org//bot525279818:AAFlIkZEzWHhuuBYJZ96_YR7y6imZYhEYzQ/sendMessage',
@@ -126,12 +126,6 @@ var sendMessage= function(req,res,text){
 
 
 app.post('/', function(req,res){
-  
-  var text="";
-
-console.log(req);
-console.log("#################################################");
-console.log(req.body);
 
 if (typeof req.body !== 'undefined' && typeof req.body.message !== 'undefined' && typeof req.body.message.text !== 'undefined' && req.body.message.text ){
 
@@ -148,6 +142,7 @@ if(req.body.message.text.startsWith('/consultar')){
          'Content-Type': 'application/json'
       }
     };
+    console.log(options);
     request(options, function (error, response, body) {
       if (!error && response.statusCode == 200) {
         console.log(body);
