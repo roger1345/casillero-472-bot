@@ -108,7 +108,7 @@ var sendMessage= function(req,res,text){
     var data = {
         'chat_id' : req.body.message.chat.id,
         'text': text,
-        'parse_mode': 'markdown'
+        'parse_mode': 'Markdown'
     };
     console.log(data);
     var request = require('request');
@@ -153,8 +153,12 @@ if(req.body.message.text.startsWith('/consultar')){
       if (!error && response.statusCode == 200) {
         console.log(body);
         let jsonTracking=JSON.parse(body);
-        let message="Hola *"+req.body.message.from.first_name+"*, su numero de guia *"+parametro+"* tiene estado *"+jsonTracking.dessta+"* enviado por *"+jsonTracking.rem_nombre+"*. Tubo un peso de *"+jsonTracking.pesolb+"* lbs, se recibio el dia *"+jsonTracking.recibo+"* y se recibio el pago el dia *"+jsonTracking.pagado+"*.";
-        sendMessage(req,res,message);
+	if(!isEmpty(jsonTracking)){
+        	let message="Hola *"+req.body.message.from.first_name+"*, su numero de guia *"+parametro+"* tiene estado *"+jsonTracking.dessta+"* enviado por *"+jsonTracking.rem_nombre+"*. Tubo un peso de *"+jsonTracking.pesolb+"* lbs, se recibio el dia *"+jsonTracking.recibo+"* y se recibio el pago el dia *"+jsonTracking.pagado+"*.";
+        	sendMessage(req,res,message);
+	}else{
+            sendMessage(req,res, "No se encontro informacion sobre la guia *"+parametro+"*, valide su guia.");
+	}
       }else{
         res.status(500).end();
       }
@@ -168,6 +172,26 @@ res.status(200).end();
 }
 
 });
+
+var isEmpty = function(data) {
+    if(typeof(data) === 'object'){
+        if(JSON.stringify(data) === '{}' || JSON.stringify(data) === '[]'){
+            return true;
+        }else if(!data){
+            return true;
+        }
+        return false;
+    }else if(typeof(data) === 'string'){
+        if(!data.trim()){
+            return true;
+        }
+        return false;
+    }else if(typeof(data) === 'undefined'){
+        return true;
+    }else{
+        return false;
+    }
+}
 
 // error handling 
 app.use(function(err, req, res, next){
