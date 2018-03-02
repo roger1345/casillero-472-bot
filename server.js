@@ -112,9 +112,12 @@ var sendMessage= function(req,res,text){
     console.log(data);
     var request = require('request');
     var options = {
-      uri: 'https://api.telegram.org//bot525279818:AAFlIkZEzWHhuuBYJZ96_YR7y6imZYhEYzQ/sendMessage',
+      uri: 'https://api.telegram.org/bot525279818:AAFlIkZEzWHhuuBYJZ96_YR7y6imZYhEYzQ/sendMessage',
       method: 'POST',
-      json: data
+      json: data,
+      headers: {
+         'Content-Type': 'application/json'
+      }
     };
     request(options, function (error, response, body) {
       if (!error && response.statusCode == 200) {
