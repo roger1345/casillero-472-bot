@@ -152,7 +152,7 @@ if(req.body.message.text.startsWith('/consultar')){
       if (!error && response.statusCode == 200) {
         console.log(body);
         let jsonTracking=JSON.parse(body);
-        let message="Hola *"+bodyjson.message.from.first_name+"*, su numero de guia *"+parametro+"* tiene estado *"+jsonTracking.dessta+"* enviado por *"+jsonTracking.rem_nombre+"*. Tubo un peso de *"+jsonTracking.pesolb+"* lbs, se recibio el dia *"+jsonTracking.recibo+"* y se recibio el pago el dia *"+jsonTracking.pagado+"*.";
+        let message="Hola *"+req.body.message.from.first_name+"*, su numero de guia *"+parametro+"* tiene estado *"+jsonTracking.dessta+"* enviado por *"+jsonTracking.rem_nombre+"*. Tubo un peso de *"+jsonTracking.pesolb+"* lbs, se recibio el dia *"+jsonTracking.recibo+"* y se recibio el pago el dia *"+jsonTracking.pagado+"*.";
         sendMessage(req,res,message);
       }else{
         res.status(500).end();
