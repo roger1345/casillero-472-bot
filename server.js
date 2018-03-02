@@ -123,6 +123,8 @@ var sendMessage= function(req,res,text){
       if (!error && response.statusCode == 200) {
         console.log(body);
         res.status(200).end();
+      }else{
+        console.log(error);
       }
     });
 };
