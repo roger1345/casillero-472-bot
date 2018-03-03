@@ -137,6 +137,7 @@ bot.command('consultar', (ctx) => {
   return ctx.reply('*42*', Extra.markdown())
 })
 
+bot.on('text', ({ replyWithHTML }) => replyWithHTML('<b>Hey there!</b>'))
 app.use(bot.webhookCallback('/'))
 
 /*app.post('/', function(req,res){
