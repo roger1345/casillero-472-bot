@@ -11,7 +11,8 @@ var express = require('express'),
 
 var mongoose = require('mongoose');
 const bot = new Telegraf(process.env.TELEGRAM_BOT_TOKEN)
-    
+console.log(process.env.TELEGRAM_BOT_TOKEN);
+
 app.use( bodyParser.json() );       // to support JSON-encoded bodies
 app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
   extended: true
@@ -132,12 +133,12 @@ var sendMessage= function(req,res,text){
     });
 };
 
+bot.on('text', ({ replyWithHTML }) => replyWithHTML('<b>Hey there!</b>'))
+bot.telegram.setWebhook('https://secure-casillero472bot.a3c1.starter-us-west-1.openshiftapps.com/')
 bot.command('consultar', (ctx) => {
   console.log(ctx.message)
   return ctx.reply('*42*', Extra.markdown())
 })
-
-bot.on('text', ({ replyWithHTML }) => replyWithHTML('<b>Hey there!</b>'))
 app.use(bot.webhookCallback('/'))
 
 /*app.post('/', function(req,res){
