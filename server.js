@@ -5,10 +5,12 @@ var express = require('express'),
     fs      = require('fs'),
     path    = require('path'),
     http = require('http'),
+    Telegraf = require('telegraf'),
     bodyParser = require('body-parser');
 
 
 var mongoose = require('mongoose');
+const bot = new Telegraf(process.env.TELEGRAM_BOT_TOKEN)
     
 app.use( bodyParser.json() );       // to support JSON-encoded bodies
 app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
@@ -130,8 +132,14 @@ var sendMessage= function(req,res,text){
     });
 };
 
+bot.command('consultar', (ctx) => {
+  console.log(ctx.message)
+  return ctx.reply('*42*', Extra.markdown())
+})
 
-app.post('/', function(req,res){
+app.use(bot.webhookCallback('/'))
+
+/*app.post('/', function(req,res){
 
 if (typeof req.body !== 'undefined' && typeof req.body.message !== 'undefined' && typeof req.body.message.text !== 'undefined' && req.body.message.text ){
 
@@ -171,7 +179,7 @@ res.status(200).end();
 res.status(200).end();
 }
 
-});
+});*/
 
 var isEmpty = function(data) {
     if(typeof(data) === 'object'){
