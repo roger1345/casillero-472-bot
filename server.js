@@ -3,6 +3,7 @@ var express = require('express'),
     app     = express(),
     Telegraf = require('telegraf');
 
+const { reply } = Telegraf
 const bot = new Telegraf(process.env.TELEGRAM_BOT_TOKEN)
 console.log(process.env.TELEGRAM_BOT_TOKEN);
 
@@ -111,10 +112,7 @@ var sendMessage= function(req,res,text){
 
 bot.on('text', ({ replyWithHTML }) => replyWithHTML('<b>Hey there!</b>'))
 // Command handling
-bot.command('consultar', (ctx) => {
-  console.log(ctx.message)
-  return ctx.reply('*42*', Extra.markdown())
-})
+bot.command('consultar', (ctx) => ctx.replyWithPhoto({ url: 'https://picsum.photos/200/300/?random' }))
 app.use(bot.webhookCallback('/'))
 
 /*app.post('/', function(req,res){
