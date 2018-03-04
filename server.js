@@ -16,7 +16,7 @@ app.get('/pagecount', function (req, res) {
 
 var getTrackingInfo= function(ctx){
   let message="";
-  consoler.log(ctx);
+  console.log(ctx);
   /*let parametro=req.body.message.text;
   parametro=parametro.replace("/consultar ","");
 
@@ -44,7 +44,7 @@ var getTrackingInfo= function(ctx){
 };
 
 bot.command('consultar', (ctx) => {
-  ctx.sendMessage(ctx.message.chat.id,getTrackingInfo())
+  ctx.sendMessage(ctx.message.chat.id,getTrackingInfo(ctx))
 });
 bot.on('text', ({ replyWithHTML }) => replyWithHTML('<b>Hey there!</b>'))
 app.use(bot.webhookCallback('/'))
