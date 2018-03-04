@@ -109,10 +109,8 @@ var sendMessage= function(req,res,text){
       }
     });
 };
-
-bot.on('text', ({ replyWithHTML }) => replyWithHTML('<b>Hey there!</b>'))
-// Command handling
 bot.command('consultar', (ctx) => ctx.replyWithPhoto({ url: 'https://picsum.photos/200/300/?random' }))
+bot.on('text', ({ replyWithHTML }) => replyWithHTML('<b>Hey there!</b>'))
 app.use(bot.webhookCallback('/'))
 
 /*app.post('/', function(req,res){
