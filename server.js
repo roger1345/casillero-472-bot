@@ -16,8 +16,8 @@ app.get('/pagecount', function (req, res) {
 
 var getTrackingInfo= function(ctx){
   let message="";
-  console.log(ctx);
-  /*let parametro=req.body.message.text;
+  console.log(ctx.update);
+  let parametro=ctx.update.message.text;
   parametro=parametro.replace("/consultar ","");
 
   var request = require('request');
@@ -34,7 +34,7 @@ var getTrackingInfo= function(ctx){
       console.log(body);
       let jsonTracking=JSON.parse(body);
       if(!isEmpty(jsonTracking)){
-        message="Hola *"+req.body.message.from.first_name+"*, su numero de guia *"+parametro+"* tiene estado *"+jsonTracking.dessta+"* enviado por *"+jsonTracking.rem_nombre+"*. Tubo un peso de *"+jsonTracking.pesolb+"* lbs, se recibio el dia *"+jsonTracking.recibo+"* y se recibio el pago el dia *"+jsonTracking.pagado+"*.";
+        message="Hola *"+ctx.update.message.from.first_name+"*, su numero de guia *"+parametro+"* tiene estado *"+jsonTracking.dessta+"* enviado por *"+jsonTracking.rem_nombre+"*. Tubo un peso de *"+jsonTracking.pesolb+"* lbs, se recibio el dia *"+jsonTracking.recibo+"* y se recibio el pago el dia *"+jsonTracking.pagado+"*.";
       }else{
         message="No se encontro informacion sobre la guia *"+parametro+"*, valide su guia.";
       }
@@ -44,7 +44,7 @@ var getTrackingInfo= function(ctx){
 };
 
 bot.command('consultar', (ctx) => {
-  ctx.sendMessage(ctx.message.chat.id,getTrackingInfo(ctx))
+  ctx.replyWithMarkdown(ctx.update.message.chat.id,getTrackingInfo(ctx))
 });
 bot.on('text', ({ replyWithHTML }) => replyWithHTML('<b>Hey there!</b>'))
 app.use(bot.webhookCallback('/'))
