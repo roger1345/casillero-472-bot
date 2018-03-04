@@ -1,27 +1,11 @@
 //  OpenShift sample Node application
 var express = require('express'),
     app     = express(),
-    morgan  = require('morgan'),
-    fs      = require('fs'),
-    path    = require('path'),
-    http = require('http'),
-    Telegraf = require('telegraf'),
-    bodyParser = require('body-parser');
+    Telegraf = require('telegraf');
 
-
-var mongoose = require('mongoose');
 const bot = new Telegraf(process.env.TELEGRAM_BOT_TOKEN)
 console.log(process.env.TELEGRAM_BOT_TOKEN);
 
-app.use( bodyParser.json() );       // to support JSON-encoded bodies
-app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
-  extended: true
-})); 
-
-Object.assign=require('object-assign')
-
-app.engine('html', require('ejs').renderFile);
-app.use(morgan('combined'))
 
 var port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080,
     ip   = process.env.IP   || process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0',
@@ -71,7 +55,7 @@ var initDb = function(callback) {
   });
 };
 
-app.get('/', function (req, res) {
+/*app.get('/', function (req, res) {
   // try to initialize the db on every request if it's not already
   // initialized.
   if (!db) {
@@ -90,21 +74,13 @@ app.get('/', function (req, res) {
   } else {
     res.render('index.html', { pageCountMessage : null});
   }
-});
+});*/
 
 app.get('/pagecount', function (req, res) {
   // try to initialize the db on every request if it's not already
-  // initialized.
-  if (!db) {
-    initDb(function(err){});
-  }
-  if (db) {
-    db.collection('counts').count(function(err, count ){
-      res.send('{ pageCount: ' + count + '}');
-    });
-  } else {
+  // initialized
     res.send('{ pageCount: -1 }');
-  }
+
 });
 
 var sendMessage= function(req,res,text){
@@ -134,11 +110,6 @@ var sendMessage= function(req,res,text){
 };
 
 bot.on('text', ({ replyWithHTML }) => replyWithHTML('<b>Hey there!</b>'))
-bot.telegram.setWebhook('https://secure-casillero472bot.a3c1.starter-us-west-1.openshiftapps.com/')
-bot.command('consultar', (ctx) => {
-  console.log(ctx.message)
-  return ctx.reply('*42*', Extra.markdown())
-})
 app.use(bot.webhookCallback('/'))
 
 /*app.post('/', function(req,res){
@@ -203,11 +174,6 @@ var isEmpty = function(data) {
     }
 }
 
-// error handling 
-app.use(function(err, req, res, next){
-  console.error(err.stack);
-  res.status(500).send('Something bad happened!');
-});
 
 initDb(function(err){
   console.log('Error connecting to Mongo. Message:\n'+err);
