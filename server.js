@@ -14,9 +14,10 @@ app.get('/pagecount', function (req, res) {
   res.send('pagecounting');
 });
 
-var getTrackingInfo= function(req,res,text){
+var getTrackingInfo= function(ctx){
   let message="";
-  let parametro=req.body.message.text;
+  consoler.log(ctx);
+  /*let parametro=req.body.message.text;
   parametro=parametro.replace("/consultar ","");
 
   var request = require('request');
@@ -38,11 +39,13 @@ var getTrackingInfo= function(req,res,text){
         message="No se encontro informacion sobre la guia *"+parametro+"*, valide su guia.";
       }
     }
-  });
+  });*/
   return message;
 };
 
-bot.command('consultar', (ctx) => ctx.sendMessage(ctx.message.chat.id,getTrackingInfo()))
+bot.command('consultar', (ctx) => {
+  ctx.sendMessage(ctx.message.chat.id,getTrackingInfo())
+});
 bot.on('text', ({ replyWithHTML }) => replyWithHTML('<b>Hey there!</b>'))
 app.use(bot.webhookCallback('/'))
 
