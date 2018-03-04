@@ -51,11 +51,11 @@ function getTrackingInfo(ctx){
 
 bot.command('consultar', (ctx) => {
   getTrackingInfo(ctx).then(function(result) {
-    return reply(result);
     //bot.telegram.sendMessage(ctx.update.message.chat.id, result);
-    }, function(err) {
-      console.log(err);
-    });
+  }, function(err) {
+    console.log(err);
+  });
+  return reply("hola");
 });
 bot.on('text', ({ replyWithHTML }) => replyWithHTML('<b>Hey there!</b>'))
 app.use(bot.webhookCallback('/'))
