@@ -50,7 +50,8 @@ function getTrackingInfo(ctx){
 
 bot.command('consultar', (ctx) => {
   getTrackingInfo(ctx).then(function(result) {
-      ctx.reply(message);
+    console.log("exito");  
+    return ctx.reply(message);
     }, function(err) {
       console.log(err);
     });
