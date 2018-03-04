@@ -39,7 +39,7 @@ var getTrackingInfo= function(ctx){
         message="No se encontro informacion sobre la guia *"+parametro+"*, valide su guia.";
       }
     }
-  });*/
+  });
   return message;
 };
 
