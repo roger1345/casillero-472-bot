@@ -51,7 +51,7 @@ function getTrackingInfo(ctx){
 bot.command('consultar', (ctx) => {
   getTrackingInfo(ctx).then(function(result) {
     console.log(ctx);
-    ctx.reply(result);
+    bot.telegram.sendMessage(ctx.update.message.chat.id, result);
     }, function(err) {
       console.log(err);
     });
