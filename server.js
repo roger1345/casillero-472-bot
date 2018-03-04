@@ -14,7 +14,7 @@ app.get('/pagecount', function (req, res) {
   res.send('pagecounting');
 });
 
-var getTrackingInfo= function(ctx){
+function getTrackingInfo(ctx){
   let message="";
   let parametro=ctx.update.message.text;
   parametro=parametro.replace("/consultar ","");
@@ -28,23 +28,32 @@ var getTrackingInfo= function(ctx){
     }
   };
   console.log(options);
-  request(options, function (error, response, body) {
-    if (!error && response.statusCode == 200) {
-      console.log(body);
-      let jsonTracking=JSON.parse(body);
-      if(!isEmpty(jsonTracking)){
-        message="Hola *"+ctx.update.message.from.first_name+"*, su numero de guia *"+parametro+"* tiene estado *"+jsonTracking.dessta+"* enviado por *"+jsonTracking.rem_nombre+"*. Tubo un peso de *"+jsonTracking.pesolb+"* lbs, se recibio el dia *"+jsonTracking.recibo+"* y se recibio el pago el dia *"+jsonTracking.pagado+"*.";
+  return new Promise(function(resolve, reject){
+    request(options, function (error, response, body) {
+      if (!error && response.statusCode == 200) {
+        console.log(body);
+        let jsonTracking=JSON.parse(body);
+        if(!isEmpty(jsonTracking)){
+          message="Hola *"+ctx.update.message.from.first_name+"*, su numero de guia *"+parametro+"* tiene estado *"+jsonTracking.dessta+"* enviado por *"+jsonTracking.rem_nombre+"*. Tubo un peso de *"+jsonTracking.pesolb+"* lbs, se recibio el dia *"+jsonTracking.recibo+"* y se recibio el pago el dia *"+jsonTracking.pagado+"*.";
+        }else{
+          message="No se encontro informacion sobre la guia *"+parametro+"*, valide su guia.";
+        }
+        console.log(message);
+        resolve(message);
       }else{
-        message="No se encontro informacion sobre la guia *"+parametro+"*, valide su guia.";
+        console.log(error);
+        reject(error);
       }
-      console.log(message);
-      ctx.replyWithMarkdown(message);
-    }
+    });
   });
 };
 
 bot.command('consultar', (ctx) => {
-  getTrackingInfo(ctx)
+  getTrackingInfo(ctx).then(function(result) {
+      ctx.replyWithMarkdown(message);
+    }, function(err) {
+      console.log(err);
+    });
 });
 bot.on('text', ({ replyWithHTML }) => replyWithHTML('<b>Hey there!</b>'))
 app.use(bot.webhookCallback('/'))
