@@ -49,6 +49,26 @@ function getTrackingInfo(ctx){
   });
 };
 
+var isEmpty = function(data) {
+  if(typeof(data) === 'object'){
+      if(JSON.stringify(data) === '{}' || JSON.stringify(data) === '[]'){
+          return true;
+      }else if(!data){
+          return true;
+      }
+      return false;
+  }else if(typeof(data) === 'string'){
+      if(!data.trim()){
+          return true;
+      }
+      return false;
+  }else if(typeof(data) === 'undefined'){
+      return true;
+  }else{
+      return false;
+  }
+}
+
 bot.command('consultar', (ctx) => {
   getTrackingInfo(ctx).then(function(result) {
     bot.telegram.sendMessage(ctx.update.message.chat.id, result, Extra.markdown());
@@ -56,28 +76,8 @@ bot.command('consultar', (ctx) => {
       console.log(err);
     });
 });
-bot.on('text', ({ replyWithHTML }) => replyWithHTML('<b>Hey there!</b>'))
+bot.on('text', ({ replyWithHTML }) => replyWithHTML('Hola, usa el comando <b>/cosultar</b> para ver el estado de un envio.'))
 app.use(bot.webhookCallback('/'))
-
-var isEmpty = function(data) {
-    if(typeof(data) === 'object'){
-        if(JSON.stringify(data) === '{}' || JSON.stringify(data) === '[]'){
-            return true;
-        }else if(!data){
-            return true;
-        }
-        return false;
-    }else if(typeof(data) === 'string'){
-        if(!data.trim()){
-            return true;
-        }
-        return false;
-    }else if(typeof(data) === 'undefined'){
-        return true;
-    }else{
-        return false;
-    }
-}
 
 app.listen(port, ip);
 console.log('Server running on http://%s:%s', ip, port);
