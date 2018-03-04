@@ -3,7 +3,6 @@ var express = require('express'),
     app     = express(),
     Telegraf = require('telegraf');
 
-const { reply } = require('telegraf/composer')
 const bot = new Telegraf(process.env.TELEGRAM_BOT_TOKEN)
 
 var port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080,
@@ -55,7 +54,7 @@ bot.command('consultar', (ctx) => {
   }, function(err) {
     console.log(err);
   });
-  return reply("hola");
+  ctx.replyWithMarkdown("hola");
 });
 bot.on('text', ({ replyWithHTML }) => replyWithHTML('<b>Hey there!</b>'))
 app.use(bot.webhookCallback('/'))
