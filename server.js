@@ -3,7 +3,6 @@ var express = require('express'),
     app     = express(),
     Telegraf = require('telegraf');
 
-const { reply } = Telegraf
 const bot = new Telegraf(process.env.TELEGRAM_BOT_TOKEN)
 
 var port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080,
@@ -49,9 +48,13 @@ function getTrackingInfo(ctx){
   });
 };
 
+function replyStatus(ctx, message){
+  return ctx.replyWithMarkdown(message);
+}
+
 bot.command('consultar', (ctx) => {
   getTrackingInfo(ctx).then(function(result) {
-    reply(result);
+    replyStatus(ctx, result);
     //bot.telegram.sendMessage(ctx.update.message.chat.id, result);
     }, function(err) {
       console.log(err);
