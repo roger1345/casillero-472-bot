@@ -49,12 +49,16 @@ function getTrackingInfo(ctx){
 };
 
 bot.command('consultar', (ctx) => {
+  console.log("1");
   getTrackingInfo(ctx).then(function(result) {
-    console.log(ctx);
-    bot.telegram.sendMessage(ctx.update.message.chat.id, result);
+    console.log("2");
+    
+    //bot.telegram.sendMessage(ctx.update.message.chat.id, result);
     }, function(err) {
+      console.log("3");
       console.log(err);
     });
+    console.log("4");
 });
 bot.on('text', ({ replyWithHTML }) => replyWithHTML('<b>Hey there!</b>'))
 app.use(bot.webhookCallback('/'))
