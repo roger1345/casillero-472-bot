@@ -37,13 +37,13 @@ var getTrackingInfo= function(ctx){
       }else{
         message="No se encontro informacion sobre la guia *"+parametro+"*, valide su guia.";
       }
+      ctx.replyWithMarkdown(message);
     }
   });
-  return message;
 };
 
 bot.command('consultar', (ctx) => {
-  ctx.replyWithMarkdown(getTrackingInfo(ctx))
+  getTrackingInfo(ctx)
 });
 bot.on('text', ({ replyWithHTML }) => replyWithHTML('<b>Hey there!</b>'))
 app.use(bot.webhookCallback('/'))
