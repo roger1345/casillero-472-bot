@@ -70,11 +70,17 @@ var isEmpty = function(data) {
 }
 
 bot.command('consultar', (ctx) => {
-  getTrackingInfo(ctx).then(function(result) {
-    bot.telegram.sendMessage(ctx.update.message.chat.id, result, Extra.markdown());
+  let parametro=ctx.update.message.text;
+  parametro=parametro.replace("/consultar ","");
+  if(!isEmpty(parametro)){
+    getTrackingInfo(ctx).then(function(result) {
+      bot.telegram.sendMessage(ctx.update.message.chat.id, result, Extra.markdown());
     }, function(err) {
       console.log(err);
     });
+  }else{
+    bot.telegram.sendMessage(ctx.update.message.chat.id, "Por favor, ingresa una guia de envio.", Extra.markdown());
+  }
 });
 app.use(bot.webhookCallback('/'))
 
