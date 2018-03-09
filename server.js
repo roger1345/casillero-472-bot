@@ -76,7 +76,6 @@ bot.command('consultar', (ctx) => {
       console.log(err);
     });
 });
-bot.on('text', ({ replyWithHTML }) => replyWithHTML('Hola, usa el comando <b>/cosultar</b> para ver el estado de un envio.'))
 app.use(bot.webhookCallback('/'))
 
 app.listen(port, ip);
