@@ -35,7 +35,7 @@ function getTrackingInfo(ctx){
         console.log(body);
         let jsonTracking=JSON.parse(body);
         if(!isEmpty(jsonTracking)){
-          message="Hola *"+ctx.update.message.from.first_name+"*, su numero de guia *"+parametro+"* tiene estado *"+jsonTracking.dessta+"* enviado por *"+jsonTracking.rem_nombre+"*. Tubo un peso de *"+jsonTracking.pesolb+"* lbs, se recibio el dia *"+jsonTracking.recibo+"* y se recibio el pago el dia *"+jsonTracking.pagado+"*.";
+          message="Hola *"+ctx.update.message.from.first_name+"*, su numero de guia *"+parametro+"* tiene estado *"+jsonTracking.dessta+"* enviado por *"+jsonTracking.rem_nombre+"*. Tuvo un peso de *"+jsonTracking.pesolb+"* lbs, se recibio el dia *"+jsonTracking.recibo+"* y se recibio el pago el dia *"+jsonTracking.pagado+"*.";
         }else{
           message="No se encontro informacion sobre la guia *"+parametro+"*, valide su guia.";
         }
